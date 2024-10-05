@@ -3,9 +3,14 @@ const app = express();
 
 const db=require('./db');
 
+require('dotenv').config();
+
 //install npm i  body-parser
 const bodyParser = require('body-parser');
 app.use(bodyParser.json()); //body parser data ko convert karke req.body mein save karlega
+
+const PORT=process.env.PORT||3000;
+
 app.get("/", function (req, res) {
     res.send('Welcome to my Hotel...How i can help you?, we have list of menus');
   });
