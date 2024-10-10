@@ -6,13 +6,14 @@ require('dotenv').config();
 
 //Define the MongoDB connection URL
 
-//const mongoURL='mongodb://127.0.0.1:27017/hotels' //ye local database ka url
+const mongoURL='mongodb://127.0.0.1:27017/hotels' //ye local database ka url
 //ye upar waali line ko env mein daal diya hai so will look something like
 //const mongoURL=process.env.MONGODB_URL_LOCAL;
 //basically jab bhi local wala db use kar rahe hotoh isse use karo nahi toh 
 //neeche waale se vo mongo atlas se
 //ye neeche wala maaast mongo atlas wala hai
-const mongoURL=process.env.MONGODB_URL;
+ //const mongoURL=process.env.MONGODB_URL;
+ //const mongoURL='mongodb+srv://arpitgaur045:Shikshagaur123@cluster0.ts4ov.mongodb.net/';
 //you can write anything else also /hotels ki jagah, yaha hum restaurant se related kuch 
 //banane waale hai thus have written /hotels
 
@@ -21,7 +22,8 @@ const mongoURL=process.env.MONGODB_URL;
 //set up MongoDB connection
 mongoose.connect(mongoURL,{
     useNewUrlParser:true,
-    useUnifiedTopology:true
+    useUnifiedTopology:true,
+
 })
 
 

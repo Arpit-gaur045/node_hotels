@@ -4,6 +4,12 @@ const app = express();
 const db=require('./db');
 
 require('dotenv').config();
+const passport = require('./auth');
+
+
+
+
+
 
 //install npm i  body-parser
 const bodyParser = require('body-parser');
@@ -11,10 +17,34 @@ app.use(bodyParser.json()); //body parser data ko convert karke req.body mein sa
 
 const PORT=process.env.PORT||3000;
 
-app.get("/", function (req, res) {
-    res.send('Welcome to my Hotel...How i can help you?, we have list of menus');
-  });
+//Middleware function
 
+const logRequest = (req, res, next) =>{
+    console.log(`[${new Date().toLocaleString()}] Request Made to: ${req.originalUrl}`);
+    next();//move on to the next phase which can even be a next middleware
+}
+
+
+//neeche diye hue mein sabse pehli cheez hamara end point hai,
+//uske baad dusri cheez middleware aur teesra hamara function 
+// app.get("/",logRequest, function (req, res) {
+//     res.send('Welcome to my Hotel...How i can help you?, we have list of menus');
+//   });
+//ye upar waale se bs isi eak mein ye implement hoga rather we want that
+//ki har eak mein ho,In that case
+
+ app.use(logRequest);
+
+
+
+
+
+app.use(passport.initialize());
+
+const localAuthMiddleware=passport.authenticate('local',{session:false})
+app.get('/',localAuthMiddleware, function (req, res) {
+        res.send('Welcome to my Hotel...How i can help you?, we have list of menus');
+       });
 // const Person = require('./models/Person')
 // const MenuItem=require('./models/MenuItem')
 
